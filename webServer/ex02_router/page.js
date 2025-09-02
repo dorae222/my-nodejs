@@ -13,6 +13,7 @@ http.createServer(async(req,res)=>{
     // 1. 템플릿엔진 (ejs, pug, nunjucks 등) => 페이지 구성이 복잡할 때(일반적)
     // 2. 서버쪽에서 html을 매번 생성해주는 방법 => 페이지 구성이 매우 단순할 때
 
+    //                                 true 옵션 => query를 객체로 변환
     const parseUrl = url.parse(req.url,true);
     console.log(parseUrl);
     const pathname = parseUrl.pathname; // '/join', '/login'

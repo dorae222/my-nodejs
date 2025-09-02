@@ -30,7 +30,9 @@ http.createServer(async(req, res) => {
     // 2. 응답 처리: 패킷 사용하여 응답 → Head | body 2가지 파트로 구성됨
     // Head : 응답 코드 (200 Ok, 404 Not Found, 500 Internal Server Error, 201 Created ...)
     //        응답 형식 (html, json, ..., 인코딩 방식(UTF-8))
+    //      : 전부 노출 (누군가 확인 가능)
     // body : 응답 본문 (html 문서, ...)
+    //      : 감춰져 있음 (바로 확인 불가)
     res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
     res.write(file); // 패킷 body 정의
     res.end(); // 패킷 전송
