@@ -6,9 +6,15 @@
     <title>Login</title>
 </head>
 <body>
-    <form>
-        <input type="text" placeholder="아이디"><br>
-        <input type="password" placeholder="비밀번호"><br>
+    <!-- login 페이지 경로 : http://localhost:3000/login -->
+    <!-- 실제 login 처리하는 경로 : http://localhost:3000/user/login -->
+    <!-- action (거의 필수) : 어디로 요청할지 주소 작성(절대 경로/상대 경로) -->
+    <!-- 절대 경로 : 외부 서버로 요청할 때, 상대 경로 작성하기에는 너무 복잡할 때 -->
+    <!-- 상대 경로 : 일반적으로 내부 서버로 요청 -->
+    <!-- name(필수) : 서버에서 각 값을 구별할 수 있는 식별자 -->
+    <form action="./user/login">
+        <input type="text" placeholder="아이디" name="id"><br>
+        <input type="password" placeholder="비밀번호" name="pw"><br>
         <input type="submit" value="로그인">
     </form>
 </body>
