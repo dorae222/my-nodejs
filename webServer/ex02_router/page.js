@@ -28,15 +28,24 @@ http.createServer(async(req,res)=>{
     } else if (pathname === '/login') {
         file = await fs.readFile('./login.html');
     } else if (pathname ==='/user/login'){
-        let html = '<html>';
-        html += '<body>';
-        html += '<h1>' + query.id + '</h1>';
-        html += '<h1>' + query.pw + '</h1>';
-        html += '</body>';
-        html += '</html>';
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(html);
-        res.end();
+
+        let userData = ''; // 전체 데이터를 저장할 변수 (사용자 입력값)
+        // post 요청이 들어옴 => 패킷의 body를 확인해야 함 => data(body)가 들어오는 이벤트가 발생함
+        req.on('data', (data) => { // data => body에 실어진 데이터(사용자가 입력한 값)
+            userData += data; // body에 실린 데이터가 여러개일 수 있으므로, 누적해서 저장
+        });
+
+        req.on('end', () => { // data 이벤트가 마무리된 후에 발생
+            let html = '<html>';
+            html += '<body>';
+            html += '<h1>' + query.id + '</h1>';
+            html += '<h1>' + query.pw + '</h1>';
+            html += '</body>';
+            html += '</html>';
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(html);
+            res.end();
+        });
     }
 
     if (file){ // join or login 경로가 아닐 경우, file이 없음
