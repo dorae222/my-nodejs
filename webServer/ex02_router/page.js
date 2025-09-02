@@ -23,7 +23,8 @@ http.createServer(async(req,res)=>{
 
     if (file){ // join or login 경로가 아닐 경우, file이 없음
         res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(file);
+        res.write(file);
+        res.end();
     }
 }).listen(3000,()=>{
     console.log("Server is running on http://localhost:3000");
