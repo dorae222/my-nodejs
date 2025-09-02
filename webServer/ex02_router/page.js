@@ -13,18 +13,17 @@ http.createServer(async(req,res)=>{
 
     // pathname 값에 따라서
     // join => join.html | login => login.html
+    let file;
 
     if (pathname === '/join') {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        const data = await fs.readFile('./join.html');
-        res.end(data);
+        file = await fs.readFile('./join.html');
     } else if (pathname === '/login') {
+        file = await fs.readFile('./login.html');
+    }
+
+    if (file){ // join or login 경로가 아닐 경우, file이 없음
         res.writeHead(200, {'Content-Type': 'text/html'});
-        const data = await fs.readFile('./login.html');
-        res.end(data);
-    } else {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('404 Not Found');
+        res.end(file);
     }
 }).listen(3000,()=>{
     console.log("Server is running on http://localhost:3000");
