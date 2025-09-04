@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+</head>
+<body>
+    <!-- 서버로 값을 전송할 때 사용되는 태그: form -->
+    <!-- 현재 경로 : http://localhost:3000/join -->
+    <!-- 회원가입 처리 경로 : http://localhost:3000/users/join -->
+    <form action="/users/join" method="post">
+        <input type="text" placeholder="아이디" name="id"><br>
+        <input type="password" placeholder="비밀번호" name="pw"><br>
+        <input type="text" placeholder="닉네임" name="nickname"><br>
+        <input type="submit" value="회원가입">
+    </form>
+</body>
+</html>
