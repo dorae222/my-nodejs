@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs').promises;
 const url = require('url');
+const qs = require('querystring'); // 쿼리스트링 처리 (String -> Object)
 
 http.createServer(async(req,res)=>{
     // 주소 설계
@@ -27,8 +28,10 @@ http.createServer(async(req,res)=>{
         file = await fs.readFile('./join.html');
     } else if (pathname === '/login') {
         file = await fs.readFile('./login.html');
-    } else if (pathname ==='/user/login'){
+    } else if (pathname ==='/user/login'){ // 실제 로그인 처리
 
+        // get -> query를 확인하여 사용자 입력값을 가져올 수 있음(head)
+        // post -> body에 실어져서 오는 데이터를 꺼내와야 함
         let userData = ''; // 전체 데이터를 저장할 변수 (사용자 입력값)
         // post 요청이 들어옴 => 패킷의 body를 확인해야 함 => data(body)가 들어오는 이벤트가 발생함
         req.on('data', (data) => { // data => body에 실어진 데이터(사용자가 입력한 값)
@@ -36,10 +39,14 @@ http.createServer(async(req,res)=>{
         });
 
         req.on('end', () => { // data 이벤트가 마무리된 후에 발생
+
+            const psData = qs.parse(userData); // 'id=sample&pw=sample_pw' -> {id: 'sample', pw: 'sample_pw'}
+            console.log(psData);
+            
             let html = '<html>';
             html += '<body>';
-            html += '<h1>' + query.id + '</h1>';
-            html += '<h1>' + query.pw + '</h1>';
+            html += '<h1>' + psData.id + '</h1>';
+            html += '<h1>' + psData.pw + '</h1>';
             html += '</body>';
             html += '</html>';
             res.writeHead(200, {'Content-Type': 'text/html'});
