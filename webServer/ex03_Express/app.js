@@ -19,6 +19,10 @@ app.get('/join', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'join.html'));
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
+
 // localhost:3000/users/join
 app.post('/users/join', (req, res) => {
   console.log(req.body); // form 태그에 입력한 값들이 객체 형태로 출력
@@ -29,10 +33,6 @@ app.post('/users/join', (req, res) => {
 
   // redirecting 방식으로 변경
   res.redirect('/login');
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
 // 로그인 처리
