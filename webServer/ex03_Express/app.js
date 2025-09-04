@@ -1,9 +1,14 @@
 const express = require('express');
 const indexRouter = require('./routes/index'); // index.js 라우터 모듈 불러오기
 const userRouter = require('./routes/users'); // users.js 라우터 모듈 불러오기
+const path = require('path');
 
 // express → app 객체 생성 (core)
 const app = express(); 
+
+// EJS 템플릿 엔진 설정
+app.set('view engine', 'ejs'); // 템플릿 엔진을 ejs로 설정
+app.set('views', path.join(__dirname, 'views')); // 템플릿인 ejs 파일들이 들어있는 폴더 경로 설정
 
 // 미들웨어
 app.use(express.urlencoded({ extended: true }));

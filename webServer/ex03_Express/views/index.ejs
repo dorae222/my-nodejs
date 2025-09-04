@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include('header') %>
+    <%# 이름 부분에 name이라는 변수가 가지고 있는 값 출력 %>
+    <h1>안녕하세요. <i><%= user.name %></i> 님!</h1>
+    <h1>안녕하세요. <%- user.name %> 님!</h1>
+
+    <%# 조건문: isPremium true → 프리미엄 회원 | false → 일반 회원 %>
+    <% if (user.isPremium) { %>
+        <p>프리미엄 회원 전용 혜택을 확인해 보세요!</p>
+    <% } else { %>
+        <p>프리미엄 회원으로 가입하고 더 많은 혜택을 누리세요!</p>
+    <% } %>
+
+    <h2> 판매 과일 목록(과일이름-가격) </h2>
+    <ul>
+        <% items.forEach((item)=>{ %>
+            <li><%= item.fruit %> - <%= item.price %>원</li>
+        <% }); %>
+    </ul>
+
+    <%- include('footer') %>
+</body>
+</html>
