@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<div class="destination-detail">
+    <h1><%= destination.name %></h1>
+    <img src="<%= destination.image %>" class="detail-image">
+    <p class="description">
+        <%= destination.description %>
+    </p>
+    <a href="/" class="back-link">&larr; 목록으로 돌아가기</a>
+</div>
+
+<%- include('partials/footer') %>
