@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<div class="page-content">
+    <h1>Our Products</h1>
+    <p>Here are some of our products.</p>
+    <ul class="product-list">
+        <% productData.items.forEach(product => { %>
+        <li class="product-item">
+            <span class="product-name"><%= product.name %></span> 
+            <span class="product-price"><%= product.price %></span>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+
+<%- include('partials/footer') %>
