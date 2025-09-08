@@ -1,0 +1,102 @@
+/* style.css */
+
+/* 전체 페이지 기본 스타일 */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* 제목 스타일 */
+h1, h2 {
+  color: #444;
+}
+
+/* 책 목록 */
+#book-list {
+  list-style: none;
+  padding: 0;
+}
+
+#book-list li {
+  background-color: #fff;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 책 제목 링크 */
+.book-title {
+  cursor: pointer;
+  color: #1e90ff;
+  text-decoration: underline;
+}
+
+/* 버튼 공통 스타일 */
+button {
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #0f6fcc;
+}
+
+/* 삭제 버튼만 빨간색 */
+.delete-btn {
+  background-color: #ff4c4c;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+}
+
+/* 책 상세 정보 박스 */
+#book-detail {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 폼 입력 스타일 */
+form input[type="text"] {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* 폼 버튼 */
+form button {
+  padding: 5px 15px;
+}
+
+/* 반응형 처리 (간단) */
+@media (max-width: 500px) {
+  #book-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  form input[type="text"] {
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  form button {
+    width: 100%;
+  }
+}

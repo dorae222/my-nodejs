@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>책 목록</title>
+  <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+<body>
+  <h1>📚 책 목록</h1>
+  <ul id="book-list">
+      <% books.forEach((book) => { %>
+      <!-- user defined(data-id) -->
+      <li data-id="<%=book.id%>"> 
+        <span class="book-title" style="cursor:pointer; color:blue; text-decoration:underline;">
+          <%=book.title %>
+        </span>
+        <!-- 삭제 버튼 -->
+        <button class="delete-btn">삭제</button>
+        <!-- 수정 버튼 -->
+        <form style="display:inline;">
+          <button type="submit">수정</button>
+        </form>
+      </li>
+      <% }) %>
+  </ul>
+
+  <h2>새 책 추가</h2>
+  <!-- 현재 경로 : [GET] localhost:3000/books -->
+  <!-- 추가 요청 : [POST]localhost:3000/books -->
+  <!-- form usually with synchronous -->
+  <form action="/books" method="post">
+    <input type="text" placeholder="제목" name="title" required>
+    <input type="text" placeholder="저자" name="author" required>
+    <!-- <input type="submit" value="추가"> -->
+    <button type="submit">추가</button>
+  </form>
+
+  <h2>📖 선택한 책 상세정보</h2>
+  <div id="book-detail">제목을 클릭하면 상세정보가 여기에 표시됩니다.</div>
+
+  <script>
+    // 사용자들은 책 제목을 클릭 (태그: <span class="book-title"> → 반복문 사용하여 각 태그에 이벤트 적용)
+    // getElemtById → HTML ELEMENT (요소 1개)
+    // guerySelectorAll → HTML COLLECTION (요소 여러개. 배열 형태와 유사) → forEach 사용 가능
+    document.querySelectorAll('.book-title').forEach((titleElement)=>{
+      // titleElement(span 태그)
+      // → 해당 태그가 클릭되었을 때 해당 부분에 출력되어 있는 책의 상세 정보를 요청
+      titleElement.addEventListener('click', async (event) => { // event: 클릭 이벤트 발생시 자동으로 들어오는 객체(이벤트에 대한 정보)
+        // event.target: 이벤트가 발생한 타겟 (사용자가 클릭한 span 태그)
+        const li = event.target.closest('li'); // 클릭한 span 태그를 감싸는 li태그를 가지고 옴
+        const bookId = li.getAttribute('data-id'); // 1, 2, ...
+        // console.log(bookId);
+
+        // fetch() : 비동기 요청을 위한 함수 → 서버로 책 상세 정보 요청
+        // 1. .then() .. ~ : 콜백 함수
+        // 2. async/await : 콜백 함수가 없어 코드가 더 간결
+        const res = await fetch(`/books/${bookId}`); // [GET] localhost:3000/books/id
+        console.log(res);
+      });
+    });
+  </script>
+</body>
+</html>
