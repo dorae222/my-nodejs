@@ -9,6 +9,8 @@ const app = express();
 
 // body-parser middleware
 app.use(bodyParser.urlencoded({ extended : true }));
+// parse JSON bodies for API requests (PUT/PATCH with fetch JSON)
+app.use(bodyParser.json());
 
 // public path for static files
 app.use(express.static(path.join(__dirname, 'public')));

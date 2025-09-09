@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>할 일 수정</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <h1>할 일 수정</h1>
+  <form id="edit-form">
+    <input type="text" id="task" value="* 선택한 to-do task 출력" required>
+    <button type="submit">수정 완료</button>
+  </form>
+  <a href="* index.ejs 로 돌아가는 경로 작성">목록으로 돌아가기</a>
+
+  <script>
+    const form = document.getElementById("edit-form");
+
+    form.addEventListener("submit", async (e) => {
+      //1. 폼 기본 제출 막기
+
+      //2. input 태그에 작성된 task 값 가져오기
+      
+      //3. 수정 요청 경로로 요청하기 (fetchAPI 활용) 
+      //   단, 수정 요청시 폼에 작성된 태스크 값을 서버로 보내야함
+      
+      //4. 200 OK 코드가 응답올 경우 '수정 완료' 알림창으로 출력 후에 최종적으로 index.ejs 페이지 띄워주기
+      //   삭제가 안된 경우에는 '수정 실패' 알림창 띄우기
+
+    });
+  </script>
+</body>
+</html>

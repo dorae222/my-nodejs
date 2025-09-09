@@ -17,7 +17,8 @@
         <!-- 삭제 버튼 -->
         <button class="delete-btn">삭제</button>
         <!-- 수정 버튼 -->
-        <form style="display:inline;">
+        <!-- 수정 페이지로 이동 -->
+        <form action="/form/<%=book.id%>" style="display:inline;">
           <button type="submit">수정</button>
         </form>
       </li>
@@ -55,7 +56,32 @@
         // 1. .then() .. ~ : 콜백 함수
         // 2. async/await : 콜백 함수가 없어 코드가 더 간결
         const res = await fetch(`/books/${bookId}`); // [GET] localhost:3000/books/id
-        console.log(res);
+        const book = await res.json() // json() → 비동기
+
+        let html = '<p>id: '+book.id+'</p>';
+        html += '<p>title: '+book.title+'</p>';
+        html += '<p>author: '+book.author+'</p>';
+
+        // innerHTML : 태그 포함
+        // innerText : 태그 미포함(텍스트로만), 태그 인식 X
+        // value : input 태그의 value 속성 값
+        document.getElementById('book-detail').innerHTML = html;
+      });
+    });
+
+    // 삭제 버튼 이벤트
+    document.querySelectorAll('.delete-btn').forEach((btn) => { // btn: 삭제 버튼
+      btn.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        const bookId = li.getAttribute('data-id');
+        fetch(`/books/${bookId}`, { // [DELETE] localhost:3000/books/id
+          method: 'DELETE'
+        });
+
+        if (res.ok) {
+          // 책 리스트에서 삭제 된 책이 출력되는 부분을 삭제
+          li.remove(); // li 요소 삭제
+        }
       });
     });
   </script>
