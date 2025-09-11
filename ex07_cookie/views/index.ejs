@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+    <!-- nick이 있으면 환영합니다 출력 -->
+    <% if(nick) { %>
+        <h1>환영합니다, <%= nick %>님!</h1><br>
+        <button><a href="/logout">로그아웃</a></button><br>
+    <% } else { %>
+        <a href="/login"><button>로그인</button></a>
+    <% } %>
+    <a href="/goodsList"><button>상품보러가기</button></a>
+    <% if(userId) { %>
+        <a href="/cart"><button>내 장바구니</button></a>
+    <% } else { %>
+        <button>장바구니</button>
+    <% } %>
+</body>
+</html>
