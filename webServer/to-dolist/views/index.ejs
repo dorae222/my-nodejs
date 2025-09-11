@@ -8,25 +8,25 @@
 <body>
   <h1>📋 오늘의 할 일</h1>
   <ul id="todo-list">
-    <!-- * 아래 li 태그 반복 출력-->
-      <li data-id="* 해당 todo의 아이디">
-        <input type="checkbox" class="toggle-check">
+    <% todos.forEach((todo)=>{%>
+      <li data-id="<%=todo.id%>">
+        <input type="checkbox" class="toggle-check" <%=todo.completed ? 'checked' : '' %> >
         <span>
-          * 해당 todo의 task 출력
+          <%=todo.task%>
         </span>
         <!-- 수정 버튼 => edit.ejs 페이지로 이동 -->
-        <form action="*edit.ejs 페이지 이동 요청 경로" method="GET" style="display:inline;">
+        <form action="/todos/edit/<%=todo.id%>" method="GET" style="display:inline;">
           <button type="submit">수정</button>
         </form>
         <button class="delete-btn">삭제</button>
       </li>
-
+    <%}); %>  
   </ul>
 
   <h2>새로운 할 일 추가</h2>
   <!-- * form 태그 기본 속성 신경 쓸것! -->
-  <form>
-    <input type="text"  placeholder="새로운 할 일을 입력하세요" required>
+  <form action="/todos" method="post">
+    <input type="text" name="task" placeholder="새로운 할 일을 입력하세요" required>
     <button type="submit">추가</button>
   </form>
 
@@ -35,15 +35,47 @@
     document.querySelectorAll(".delete-btn").forEach(btn => {
       btn.addEventListener("click", async (e) => {
         //1. 선택한 to-do 리스트의 id 값 가져오기
-        
+        const li = e.target.closest('li');
+        const todoId = li.getAttribute('data-id');
+
         //2. '정말 삭제하시겠습니까?' 를 확인창으로 띄운 후 취소 선택 시 더이상 진행하지 않음
+        const del = confirm('정말 삭제하시겠습니까?');
+        if(!del) return; //현재 함수 마무리(더이상 진행하지 않음)
         
         //3. 삭제 요청 경로로 요청 (fetch API 활용)
+        const res = await fetch(`/todos/${todoId}`,{
+            method : 'DELETE'
+        });
 
         //4. 200 OK 코드가 응답올 경우 해당 li 태그 화면에서 삭제
         //   삭제가 안된 경우에는 '삭제 실패' 알림창 띄우기
+        if(res.ok){
+            li.remove();
+        }else{
+          alert('삭제에 실패했습니다');
+        }
+
       });
     });
+
+    document.querySelectorAll('.toggle-check').forEach((check)=>{
+      check.addEventListener('click', async (e)=>{
+        const li = e.target.closest('li');
+        const todoId = li.getAttribute('data-id');
+
+        //[PATCH]localhost:3000/todos/1(아이디)/completed
+        const res = await fetch(`/todos/${todoId}/completed`, {
+          method : 'PATCH'
+        });
+
+        if(res.ok){
+          alert('완료 상태 변경 완료되었습니다');
+        }else{
+          alert('삭제 실패했습니다');
+        }
+      });
+    });
+
 
   </script>
 </body>
