@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// 사용자별 장바구니 저장소 (실제 서비스에서는 데이터베이스 사용)
-const userCarts = {};
-
 router.get('/login', (req,res)=>{
     res.render('login');
 });
@@ -31,47 +28,45 @@ router.get('/logout', (req,res) => {
     res.redirect('/');
 });
 
-router.get('/goodsList', (req,res) => {
-    res.render('goodsList');
-}); 
-
 router.get('/goodsAdd', (req,res) => {
-    const userId = req.cookies.userId;
+    console.log(req.query.goods);
+
     const goods = req.query.goods;
-    
-    if (!userId) {
-        return res.send('로그인이 필요합니다.');
+    for (let i = 0; i < goods.length; i++) {
+        res.cookie(`goods${i+1}`, goods[i]);
     }
-    
-    // 사용자별 장바구니 초기화
-    if (!userCarts[userId]) {
-        userCarts[userId] = [];
-    }
-    
-    // 선택된 상품들을 사용자 장바구니에 추가
-    if (goods) {
-        if (Array.isArray(goods)) {
-            userCarts[userId] = [...userCarts[userId], ...goods];
-        } else {
-            userCarts[userId].push(goods);
-        }
-    }
-    
-    console.log(`${userId}님의 장바구니:`, userCarts[userId]);
-    console.log('전체 사용자 장바구니:', userCarts);
-    
-    res.send(`${userId}님, 담기 완료! 현재 장바구니: [${userCarts[userId].join(', ')}]`);
+    res.redirect('/');
 });
 
-router.get('/cart', (req,res) => {
-    const userId = req.cookies.userId;
+router.get('/goodsList', (req,res) => {
+    res.render('goodsList');
+});
+
+router.get('/myGoodsList', (req,res)=>{
+    // cookie의 이름만 가져오기
+    const key = Object.keys(req.cookies);
+    // console.log(req.cookies);
+    // console.log(key);
     
-    if (!userId) {
-        return res.send('로그인이 필요합니다.');
+    // cookie의 값 가져오기
+    const cookieData = { goods : []};
+    
+    for (let i = 0; i < key.length; i++) {
+    cookieData.goods.push(req.cookies[key[i]])
     }
-    
-    const userCart = userCarts[userId] || [];
-    res.send(`${userId}님의 장바구니: [${userCart.join(', ')}]`);
+
+    res.render('myGoodsList', cookieData);
+});
+
+router.get('/goodsRemove', (req, res) => {
+    // 문제: 내가 가진 모든 쿠기를 삭제하고 /myGoodsList로 다시 이동
+    const key = Object.keys(req.cookies);
+
+    for (let i = 0; i < key.length; i++) {
+        res.cookie(key[i], '', { maxAge: 1 });
+    }
+
+    res.redirect('/myGoodsList');
 });
 
 module.exports = router;
