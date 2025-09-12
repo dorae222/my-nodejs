@@ -89,7 +89,7 @@ out
 .nuxt
 dist
 
-ex08_session/sessions
+sessions
 
 # Gatsby files
 .cache/
