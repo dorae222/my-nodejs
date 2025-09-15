@@ -19,7 +19,7 @@ router.get('/aiInfo', (req, res) => {
 });
 
 router.get('/aiList', (req, res) => {
-    // 현재는 객체 배열이지만, 나중에는 DB로 대체
+    // 현재는 객체 배열(Json Array)지만, 나중에는 DB로 대체
     const teacher = [
         { name : '김민수', nick : '유사 주우재', age : 20, hobby : '쇼핑하기'},
         { name : '최영화', nick : '자연재해', age : 21, hobby : '방탈출 하기'},
@@ -30,6 +30,40 @@ router.get('/aiList', (req, res) => {
     ];
     req.session.teacher = teacher;
     res.render('aiList', req.session);
+});
+
+router.get('/loginForm', (req,res) => {
+    res.render('loginForm');
+});
+
+router.post('/login', (req,res) => {
+    // console.log(req.body);
+
+    if(req.body.id === 'aischool' && req.body.pw === '1234'){
+        req.session.nick = '관리자';
+    }
+    res.render('index', req.session);
+});
+
+router.get('/logout', (req,res) => {
+    // 세션 삭제
+    req.session.destroy();
+    res.redirect('/');
+});
+
+router.get('/teamInfo', (req,res) => {
+    res.render('teamInfo');
+});
+
+router.post('/introduce', (req,res) => {
+    if (!req.session.teamInfoList) req.session.teamInfoList = [];
+    req.session.teamInfoList.push({
+        name: req.body.name,
+        nickname: req.body.nickname,
+        contact: req.body.contact,
+        hobby: req.body.hobby
+    });
+    res.render('index', req.session);
 });
 
 module.exports = router;

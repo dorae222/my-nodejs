@@ -9,6 +9,35 @@
     <a href="aiAddress"><button>사관학교 주소보기</button></a>
     <a href="aiInfo"><button>사관학교 정보보기</button></a>
     <a href="aiList"><button>사관학교 선생님리스트</button></a>
-    <a href=""><button>사관학교 로그인</button></a>
+
+    <!-- 정의되어 있지 않다 → 정의되어 있다 -->
+    <% if(typeof(nick) !== 'undefined') { %>
+        <%=nick%>님 환영합니다.<br>
+        <a href="/">로그아웃</a>
+    <% }else{ %>
+        <a href="loginForm"><button>사관학교 로그인</button></a>
+    <% } %>
+
+    <a href="teamInfo"><button>팀원 정보 추가</button></a>
+
+    <% if(typeof teamInfoList !== 'undefined' && Array.isArray(teamInfoList) && teamInfoList.length > 0) { %>
+        <h3>팀원 정보</h3>
+        <table border="1">
+            <tr>
+                <th>이름</th>
+                <th>별명</th>
+                <th>연락처</th>
+                <th>취미</th>
+            </tr>
+            <% teamInfoList.forEach(function(member) { %>
+            <tr>
+                <td><%= member.name %></td>
+                <td><%= member.nickname %></td>
+                <td><%= member.contact %></td>
+                <td><%= member.hobby %></td>
+            </tr>
+            <% }); %>
+        </table>
+    <% } %>
 </body>
 </html>

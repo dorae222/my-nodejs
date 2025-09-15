@@ -14,17 +14,17 @@ const app = express();
 app.use(cookieParser('secret key')); //쿠키 가지고 올 때 필요
 app.use(session({
     httpOnly: true,    //자바스크립트를 통해 세션 쿠키를 사용할 수 없도록 함 → 프론트 단에서 document.cookie로 접근 불가
-    secure: true,    //https 환경에서만 session 정보를 주고받도록처리
+    secure: false,    //https 환경에서만 session 정보를 주고받도록처리 (개발환경에서는 false)
     secret: 'secret key',    //암호화하는 데 쓰일 키 → 고정값
     resave: false,    //세션을 언제나 저장할지 설정함
     saveUninitialized: true,    //세션이 저장되기 전 uninitialized 상태로 미리 만들어 저장
     cookie: {    //세션 쿠키 설정 (세션 관리 시 클라이언트에 보내는 쿠키)
       httpOnly: true,
-      secure: true
+      secure: false    // 개발환경에서는 false로 설정
     },
     store : new fileStore()
   }));
-
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

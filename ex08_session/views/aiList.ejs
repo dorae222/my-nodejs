@@ -7,10 +7,21 @@
 </head>
 <body>
     <h2>선생님 소개</h2>
-    <ul>
-        <% teacher.forEach(function(t) { %>
-            <li><%= t.name %> (<%= t.nick %>) - 나이: <%= t.age %>, 취미: <%= t.hobby %></li>
+    <table border="1">
+        <tr>
+            <td>이름</td>
+            <td>별명</td>
+            <td>나이</td>
+            <td>취미</td>
+        </tr>
+        <% teacher.forEach((t) => { %>
+            <tr>
+                <td><%= t.name %></td>
+                <td><%= t.nick %></td>
+                <td><%= t.age %></td>
+                <td><%= t.hobby %></td>
+            </tr>
         <% }); %>
-    </ul>
+    </table>
 </body>
 </html>
