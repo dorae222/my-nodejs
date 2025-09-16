@@ -38,8 +38,12 @@ router.post('/login', (req, res) => {
             console.log('로그인:',`${rows[0].nick}님 환영합니다.`);
             res.send(`${rows[0].nick}님 환영합니다.`);
         } else {
+            console.log('로그인 실패');
             res.send('아이디 또는 비밀번호가 틀렸습니다.');
         }
+
+        // 성공/실패 상관없이 메인으로 이동
+        res.redirect('/');
     });
 });
 
