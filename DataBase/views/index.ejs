@@ -7,7 +7,21 @@
 </head>
 <body>
     <h2>회원관리 시스템</h2>
-    <a href="login"><button>로그인</button></a>
-    <a href="join"><button>회원가입</button></a>
+
+    <% if (typeof info !== 'undefined') { %>
+      <p>환영합니다, <%= info.nick %>님!</p>
+
+      <!-- 관리자 모드 -->
+      <% if (info.id === 'admin') { %>
+        <a href="list"><button>회원목록보기</button></a>
+      <% } %>
+
+      <a href="logout"><button>로그아웃</button></a>
+      <a href="update"><button>회원정보수정</button></a>
+      <a href="delete"><button>회원탈퇴</button></a>
+    <% } else { %>
+      <a href="login"><button>로그인</button></a>
+      <a href="join"><button>회원가입</button></a>
+    <% } %>
 </body>
 </html>
