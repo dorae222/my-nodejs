@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>회원목록 페이지</h2>
+    <table border="1px solid black">
+        <tr>
+            <td>번호</td>
+            <td>아이디</td>
+            <td>비밀번호</td>
+            <td>닉네임</td>
+            <td>삭제</td>
+        </tr>
+
+        <% list.forEach((vo, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= vo.id %></td>
+                <td><%= vo.pw %></td>
+                <td><%= vo.nick %></td>
+                <td><a href="aDelete?id<%= vo.id %>"><button>삭제</button></a></td>
+            </tr>
+        <% }); %>
+
+    </table>
+</body>
+</html>
