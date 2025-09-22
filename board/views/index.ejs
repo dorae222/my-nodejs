@@ -16,12 +16,12 @@
     <div class="container">
         <h2>Node.js로 만드는 나만의 게시판</h2>
         <div class="card">
-            <div class="card-header bg-info text-white">게시판 목록</div>
+            <div class="card-header bg-info text-white" align="center">게시판 목록</div>
             <div class="card-body">
                 <table class="table table-hover">
                     <tr>
                         <td>번호</td>
-                        <td>제목</td>
+                        <td align="center">제목</td>
                         <td>작성자</td>
                         <td>조회수</td>
                         <td>날짜</td>
@@ -29,7 +29,7 @@
                     <% board.forEach((vo, index) => { %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><%= vo.title %></td>
+                            <td><a href="content?idx=<%= vo.idx %>"><%= vo.title %></a></td>
                             <td><%= vo.writer %></td>
                             <td><%= vo.count %></td>
                             <td>
@@ -38,6 +38,8 @@
                         </tr>
                     <% }); %>
                 </table>
+
+                <a href="insert"><button class="btn bg-info text-white">글쓰기</button></a>
             </div>
             <div class="card-footer">제작자-도형준</div>
         </div>
